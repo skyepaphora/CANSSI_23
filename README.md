@@ -40,7 +40,7 @@ For full details regarding custom plots/palettes, visit [Skye's Toolbox](https:/
 
 ## Splot: Custom Plots
 
-#### Preliminary Functions Required by Splot()
+### Preliminary Functions Required by Splot()
 
 #### rekt
 
