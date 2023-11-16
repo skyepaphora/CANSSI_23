@@ -1,0 +1,79 @@
+## Colour Scheme 1 
+
+### Skastels: pastels
+
+**HOT:**  (lum=75, sat=75-95)
+
+**COLD:** (lum=70, sat=30)
+
+| red         | yellow      | green       | blue        | purple      |
+|:------------|:------------|:------------|:------------|:------------|
+| `#EF8F8F`![#EF8F8F](https://placehold.co/15x15/EF8F8F/EF8F8F.png) | `"#FCDE83"`![#FCDE83](https://placehold.co/15x15/FCDE83/FCDE83.png) | `"#B3C99C"`![#B3C99C](https://placehold.co/15x15/B3C99C/B3C99C.png) | `"#9CBAC9"`![#9CBAC9](https://placehold.co/15x15/9CBAC9/9CBAC9.png) | `"#B29CC9"`![#B29CC9](https://placehold.co/15x15/B29CC9/B29CC9.png) |
+
+```{r}
+skastel <- list(red = "#EF8F8F",
+                yellow = "#FCDE83",
+                green = "#B3C99C",
+                blue = "#9CBAC9",
+                purple = "#B29CC9")
+```
+
+### *Skaturate:* saturated version of skastels
+
+| red         | yellow      | green       | blue        | purple      |
+|:------------|:------------|:------------|:------------|:------------|
+| `#FF6666`![#FF6666](https://placehold.co/15x15/FF6666/FF6666.png) | `"#FFD966"`![#FFBB33](https://placehold.co/15x15/FFBB33/FFBB33.png) | `"#8FCC52"`![#8FCC52](https://placehold.co/15x15/8FCC52/8FCC52.png) | `"#45B0E6"`![#45B0E6](https://placehold.co/15x15/45B0E6/45B0E6.png) | `"#A15CE6"`![#A15CE6](https://placehold.co/15x15/A15CE6/A15CE6.png) |
+
+```{r}
+skaturate <- list(red  = "#FF6666",
+                yellow = "#FFBB33",
+                green  = "#8FCC52",
+                blue   = "#45B0E6",
+                purple = "#A15CE6")
+```
+
+#### Skrown: Nudes and Earthy Shades
+
+(Hue=33, Sat=22)
+
+* Lowercase "b" for light browns (background colours, subtle shading, etc.)
+* Uppercase "B" for dark browns (text, plot features, etc.)
+
+| Salt        | Smoke       | b1          | b2          | B1          | B2          | B3          |
+|:------------|:------------|:------------|:------------|:------------|:------------|:------------|
+| `#FBFAF9`![#FBFAF9](https://placehold.co/15x15/FBFAF9/FBFAF9.png) | `"#F7F5F3"`![#F7F5F3](https://placehold.co/15x15/F7F5F3/F7F5F3.png) | `"#EFEBE6"`![#EFEBE6](https://placehold.co/15x15/EFEBE6/EFEBE6.png) | `"#DFD7CD"`![#DFD7CD](https://placehold.co/15x15/DFD7CD/DFD7CD.png) | `"#897358"`![#897358](https://placehold.co/15x15/897358/897358.png) | `"#574938"`![#574938](https://placehold.co/15x15/574938/574938.png) | `"#322A20"`![#322A20](https://placehold.co/15x15/322A20/322A20.png) |
+
+```{r}
+skrown <- list(salt = "#FBFAF9",
+              smoke = "#F7F5F3",
+              b1 = "#EFEBE6",
+              b2 = "#DFD7CD",
+              B1 = "#897358",
+              B2 = "#574938",
+              B3 = "#322A20")
+```
+
+
+
+## Colour Scheme 2 (old)
+
+Currently used on draft of my website/porfolio, and: most plots I've made in the past year
+
+```{r}
+skol <-  list(red = "#EF8085", orange = "#ee9946", yellow = "#FCD779",
+            green = "#B3C99D",   blue = "#9DBACA", purple = "#B29CC9",
+           brown1 = "#EFEBE6", brown2 = "#DFD6CD", brown3 = "#896f58",
+           brown4 = "#544536",  cream = "#F7F3F3",   salt = "#FBFAF9")
+```
+
+
+
+
+
+
+
+
+
+```{r}
+save.image("spalette.RData")
+```

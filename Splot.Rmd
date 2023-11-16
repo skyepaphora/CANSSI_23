@@ -1,0 +1,226 @@
+---
+output: html_document
+---
+
+```{r}
+# Load Palette
+load(file = "C:/Users/skyep/Documents/Research/Skyes_Toolbox/spalette.RData")
+```
+
+# Prelim Functions
+
+```{r prelim}
+
+# --- Rectangle --- #
+rekt <- function(col = skrown$smoke, log = ""){
+  if(log == ""){
+      rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = col)
+  } else if(log == "x"){
+      rect(10^par("usr")[1], par("usr")[3], 10^par("usr")[2], par("usr")[4], col = col)
+  } else if(log == "y"){
+      rect(par("usr")[1], 10^par("usr")[3], par("usr")[2], 10^par("usr")[4], col = col)
+  } else if (log == "xy"){
+      rect(10^par("usr")[1], 10^par("usr")[3], 10^par("usr")[2], 10^par("usr")[4], col = col)
+  }
+}
+
+# --- box around plot --- #
+sox <- function(col = skrown$B2, log = ""){
+    abline(col = col,
+       v = if(log == "x" | log == "xy" | log == "yx") {10^c(par("usr")[1], par("usr")[2])} else {c(par("usr")[1], par("usr")[2])},
+       h = if(log == "y" | log == "xy" | log == "yx") {10^c(par("usr")[3], par("usr")[4])} else {c(par("usr")[3], par("usr")[4])})}
+
+# --- orientation lines --- #
+skor <- function(x = 0, y = NULL, xlim = NULL, ylim = NULL, n1 = 11, n2 = 9, col = "white", log = ""){
+  
+  # loggers
+  log.x <- (log == "x" | log == "xy"| log == "yx")
+  log.y <- (log == "y" | log == "xy"| log == "yx")
+  
+  # vertical/horizontal markers 
+  vlim <- if(is.null(xlim)){c(min(x), max(x))} else {c(xlim[1], xlim[2])}
+  #if(log.x){vlim <- 10^vlim}
+  
+  hlim <- if(is.null(ylim)){ if(is.null(y)){c(min(x), max(x))} else {c(min(y), max(y,0))} } else {c(ylim[1], ylim[2])}
+  #if(log.y){hlim <- 10^hlim}
+  
+  abline(v = seq(vlim[1], vlim[2], length.out=n1), col = col, lwd = 2)
+  abline(h = seq(hlim[1], hlim[2], length.out=n2), col = col, lwd = 2)
+
+  sox(log = log)
+}
+
+# --- Label Function --- # NORMALLY 1.7 is actually 1.5!!!!!!!!!!!!!!!!!!!
+slab <- function(main = "", subb = "", xlab = "", ylab = "", col = skrown$B3,
+                 yline = 3, mline = 1.75, cex.factor = 1){
+  if(subb == ""){
+            mtext(main, 3, 1,     font = 2, cex = 1.1*cex.factor, col = col)
+    } else {mtext(main, 3, mline,  font = 2, cex = 1.1*cex.factor, col = col )} # ,,2 prev. 1.75
+  mtext(subb, 3, 0.28 ,           cex = 1   *cex.factor, col = col)
+  mtext(xlab, 1, 2.75 , font = 1, cex = 1.05*cex.factor, col = col)
+  mtext(ylab, 2, yline, font = 1, cex = 1.05*cex.factor, col = col)
+}
+
+```
+
+
+
+```{r}
+# --- Special Modulo Function --- #
+ind <- function(j,n){
+  a <- j%%n
+  b <- a + n*(a==0)
+  return(b)
+}
+
+
+# --- Add extra data --- #
+sadd <- function(x = NULL, f = NULL, col = skaturate, type = "p", pch = 19, lwd = 1,
+                 leg.pos = "topright", leg.lab = names(f)){
+  
+  # get param lengths
+  nx <- length(x)
+  nf <- length(f)
+  
+  nk <- length(col)
+  nt <- length(type)
+  np <- length(pch)
+  nw <- length(lwd)
+
+  # change x to list if needed
+  if((class(x) != "list") & !is.null(x)){x <- list(x); nx <- length(x)}
+  
+  # change y to list, ensure names exist
+  if(class(f) != "list"){
+    if(is.null(leg.lab)){leg.lab <- substitute(f)}
+  
+    f  <- list(f)
+    nf <- length(f)
+  } else{
+    if(is.null(leg.lab)){
+      leg.lab <- sapply(1:nf, function(v){bquote("f"[.(v)])})
+    }
+  }
+  
+  # add
+  for(g in 1:nf){
+    if(is.null(x)){
+      points(f[[g]], col = col[[ind(g,nk)]], type = type[ind(g,nt)], pch = pch[ind(g,np)], lwd = lwd[ind(g,nw)])
+    } else {
+      points(x[[ind(g,nx)]], f[[g]], col = col[[ind(g,nk)]], type = type[ind(g,nt)], pch = pch[ind(g,np)], lwd = lwd[ind(g,nw)])
+    }
+  }
+  
+  # legend prep
+  # lty = unname(sapply(type, function(l){if(any(l != c("p"))){1} else{NA}}))
+  # pch = unname(sapply(type, function(p){if(any(p == c("p","b","o"))){pch} else{NA}}))
+  # 
+  # if(any(type != "p")){ 
+  #   
+  #   
+  #   }
+  # 
+  # legend(leg.pos, legend = leg.lab, col = unlist(col), 
+  #        lty = unname(sapply(type, function(l){if(any(l != c("p"))){1} else{NULL}})),
+  #        pch = unname(sapply(type, function(p){if(any(p == c("p","b","o"))){pch} else{NULL}})))
+}
+
+# splot(x,y1)
+# sadd(x = x, f = y1/2, col = skaturate, type = "h")
+# 
+# 
+# f <- list(y1 = y1, y2 = y2, y3 = y/1.5)
+# splot(x,y1)
+# sadd(x = x, f = f, leg.pos = "top")
+# 
+# col <- c("red","blue")
+
+
+
+```
+
+
+
+
+
+
+
+# Splot: Skye-Plots
+
+```{r}
+# --- Skye-Plot function --- #
+splot <- function(x, y = NULL,
+                  col  = skrown$B2,
+                  main = "", subb = "", xlab = NULL, ylab = NULL,
+                  type = "p", pch = 19,
+                  colr = skrown$smoke,
+                  xlim = NULL, ylim = NULL,
+                  skor = TRUE, n1 = 11, n2 = 9, skorcol = "white",
+                  log  = "",
+                  labs = 1, las = 1, coll = skrown$B3, ...){
+  # frame
+  plot(x, y, xlab = "", ylab = "", las = las,
+       xlim = xlim, ylim = ylim, log = log, ...)
+  
+  # bg
+  rekt(colr, log)
+
+  # orient type 
+  if(skor)(skor(x, y, xlim, ylim, n1, n2, skorcol, log = log))
+
+  # add
+  points(x, y, col = col, pch = pch, type = type, ...)
+
+  # Labels
+  slab(main, subb, col = coll)
+
+  if(labs>0){
+    if(!is.null(y)){
+      xlabel <- substitute(x)
+      ylabel <- substitute(y)
+    } else {
+      xlabel <- "Index"
+      ylabel <- substitute(x)
+    }
+    slab(xlab = xlabel, ylab = ylabel, col = coll)
+  }
+}
+```
+
+# SAVE
+
+```{r}
+save.image("~/Research/Skyes_Toolbox/splot.RData")
+```
+
+---
+
+### Old buggy functions I don't really use anymore (but probably will have to revive soon)
+
+```{r}
+# # --- define inner function: pillarbox 
+# rext <- function(N=1000,B=100, col = skrown$b1){rect(
+#      xleft = c(par("usr")[[1]],N-ceiling(B/2)),
+#      ybottom = c(par("usr")[[3]], par("usr")[[3]]),
+#      xright = c(ceiling(B/2), par("usr")[[2]]),
+#      ytop = c(par("usr")[[4]], par("usr")[[4]]),
+#      col = col, border = NA)}
+# 
+# # --- within splot
+# # requires B, N, bord, skol
+# if(rexs){
+#     rext(length(x),bord)
+#     abline(v = c(ceiling(B/2),N-ceiling(B/2)), col = skol$green, lty = 2)
+#     abline(v=c(par("usr")[1]),#par("usr")[3]),
+#            h=par("usr")[4]) 
+#   }
+
+
+splot(x,y, log = "y")
+abline(col = "red",
+       v = if(log == "x" | log == "xy") {10^c(par("usr")[1], par("usr")[2])} else {c(par("usr")[1], par("usr")[2])},
+       h = if(log == "y" | log == "xy") {10^c(par("usr")[3], par("usr")[4])} else {c(par("usr")[3], par("usr")[4])})
+
+
+log <- "y"
+```
