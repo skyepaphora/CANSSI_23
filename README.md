@@ -105,3 +105,23 @@ For full details regarding custom plots/palettes, visit [Skye's Toolbox](https:/
 | ...       | other graphical parameters                                                                                      |
 
 ---
+
+## Google Slides 
+
+#### Guide Placement
+
+For details, or to modify based on different window dimensions, see [slides_guides.R](https://github.com/skyepaphora/CANSSI_23/blob/main/slides_guides.R). 
+
+| vertical| Horizontal|
+|--------:|----------:|
+|     1.00|       1.00|
+|     8.47|       1.00|
+|    12.70|       2.36|
+|    16.93|       3.72|
+|    24.40|       4.72|
+|       NA|       7.08|
+|       NA|       9.43|
+|       NA|      10.43|
+|       NA|      11.79|
+|       NA|      13.15|
+|       NA|      13.15|

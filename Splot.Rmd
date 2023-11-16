@@ -190,7 +190,7 @@ splot <- function(x, y = NULL,
 # SAVE
 
 ```{r}
-save.image("~/Research/Skyes_Toolbox/splot.RData")
+save.image("splot.RData")
 ```
 
 ---
