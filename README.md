@@ -1,5 +1,4 @@
-% CANSSI '23: Code \& Files
-% November 17, 2023
+# CANSSI '23: Code \& Files
 
 ---
 
