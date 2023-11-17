@@ -2,6 +2,8 @@
 
 ---
 
+Link to Google Slides presentation: [CANSSI_23](https://docs.google.com/presentation/d/1o7XtqsDkoHXA5OZQ2vOo529RcGZZCD92SvRfb6J3tRg/edit?usp=sharing) 
+
 For full details regarding custom plots/palettes, visit [Skye's Toolbox](https://github.com/Skyepaphora-Griffith/Skyes_Toolbox).
 
 ---
