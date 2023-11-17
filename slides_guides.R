@@ -25,8 +25,8 @@ H <- 14.15
     h.t1 <- sort( c(h.6[1], h.6[1] + c(-1,1)*abs(h.6[1] - h.b[1])) )
     h.t2 <- sort( c(h.6[2], h.6[2] + c(-1,1)*abs(h.6[2] - h.b[2])) )
     
-    v <- c(sort(c(v.b,v.2,v.3)), rep(NA,6)); rm(v.b,v.2,v.3)
-    h <- sort(c(h.b,h.2,h.3,h.t1,h.t2)); rm(h.b,h.2,h.3,h.t1,h.t2)
+    v <- c(sort(c(v.b,v.2,v.3)), rep(NA,4)); rm(v.b,v.2,v.3)
+    h <- sort(c(h.2,h.3,h.t1,h.t2)); rm(h.b,h.2,h.3,h.t1,h.t2)
     
     # --- Remove everything but guide values
     rm(h.6,W,H,r)

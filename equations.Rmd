@@ -1,0 +1,220 @@
+# Preamble
+\usepackage{xcolor}
+\definecolor{fore}{HTML}{544536}
+
+
+# Equations
+
+### HRS block
+
+$$
+\hat S_{X,b}(t,f) 
+    = \frac{B}{K}\left| \sum_{n=0}^{B-1}
+    \left[\sum_{k=0}^{K-1}\nu_{k}(t-b)\nu_{k}(n)\right] 
+    x_b(n+b)e^{-i2\pi fn} \right|^2
+$$
+
+#### Sliding window
+
+$$
+\begin{aligned}
+    \hat S_{X,B}^{sw}(t,f) &= \hat S_{X,b}\big(t(b),f\big) 
+    \\&\\
+    t(b) &= b + \lceil (B/2)\rceil 
+    \\
+    b &= t - \lceil (B/2)\rceil
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+  t \in T(B) &\stackrel{\text{def}}{=} \Big\{t_0 , \dots, t_{B-1}\Big\}
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+  t \in T(B) &\stackrel{\text{def}}{=} \Big\{t_0 , \dots, t_\beta\Big\}
+\end{aligned}
+$$
+
+## MOdified Sgram
+
+#### NSQI
+
+$$
+S_X(t + \tau,f) = \sum_{j=0}^{J-1} u_j(t,f)U_j(\tau)
+$$
+
+#### EigenProblem
+
+$$
+\alpha_j U_j(t) = N\sum_{\tau=0}^{N-1}
+    \left|
+        \frac{\sin\Big(N\pi(t-\tau)\Big)}{\sin\Big(\pi(t-\tau)\Big)}
+    \right|^2 U_j(\tau)
+$$
+#### Approx NSQI vs Taylor Series
+
+$$
+\begin{aligned}
+S_{b}(t,f) 
+    &\approx \sum_{j=0}^{J_b} u_{j,b}(f)U_l(j-b)
+\\&\\
+    S_{b}(t,f)
+    &\approx S_{b}\big(t(b),f\big) + S_{b}^{(1)}\big(t(b),f\big)\big(t-t(b)\big)
+\end{aligned}
+$$
+
+#### NSQI == Taylor Series
+
+$$
+\sum_{j=0}^{J_b} u_{j,b}(f)U_l(j-b)
+\approx 
+S_{b}(t(b),f) + S_{b}^{(1)}(t(b),f)(t-t(b))
+$$
+
+#### ModSpec
+
+$$
+\hat S_{b}^{ms}(t(b),f) 
+    = \frac{\frac{K}{\alpha_0}\sum_{t=b}^{b+B-1}\hat S_{b}(t,f)U_0(t-b)}
+                    {\sum_{t=b}^{b+B-1} U_0(t-b)}.
+$$
+#### TD-Modspec
+
+$$
+\hat S^{ms (1)}_{b}(t(b),f) = 
+    \frac{\frac{K}{\alpha_1}\sum_{t=b}^{b+B-1}\hat S_{b}(t,f)U_1(t-b)}
+    {\sum_{t=b}^{b+B-1} U_1(t-b)(t-t(b))}
+$$
+
+## Boundary Correction
+
+#### 1-BC
+
+$$
+\hat S_B^{\{1\}}(t,f) = 
+    \begin{cases}
+        \hat S^{ms}_{\beta}(t(\beta),f) + |t-t(\beta)|\hat S^{ms(1)}_{\beta}(t(\beta),f)  &\quad t > t_\beta \\&\\
+        \hat S^{ms}_{b}(t(b),f) ;\quad  b = t-\lceil(B/2)\rceil                           &\quad t \in T(B) \\&\\
+        \hat S^{ms}_{0}(t(0),f) - |t-t(0)|\hat S^{ms(1)}_{0}(t(0),f)                      &\quad t < t_0
+    \end{cases} 
+$$
+
+#### 2-BC
+
+$$
+\hat S_B^{\{2\}}(t,f) = 
+    \begin{cases}
+        \hat S^{(0)}_{\beta}(t(\beta),f) 
+            + |t-t(\beta)|\hat S^{(1)}_{\beta}(t(\beta),f)
+            + \frac{|t-t(\beta)|^2}{2}\hat S^{(2)}_{\beta}(t(\beta),f)
+            &\quad  t > t_\beta 
+    \\&\\
+        \hat S^{(0)}_{b}(t(b),f) ;\quad  b = t-\lceil(B/2)\rceil
+            &\quad  t \in T(B)
+    \\&\\
+        \hat S^{(0)}_{0}(t(0),f) 
+            - |t-t(0)|\hat S^{(1)}_{0}(t(0),f)
+            - \frac{|t-t(0)|^2}{2}\hat S^{(2)}_{0}(t(0),f)
+            &\quad  t < t_0,
+    \end{cases}
+$$
+
+## UMP dissection
+
+### GEST
+
+$$
+\begin{aligned}
+  X(t) &= c(t)Y(t) 
+  \\&\\
+  S_X(t,f) &= c^{2}(t)Y(t)
+\end{aligned}
+$$
+
+$$
+S_X(t,f)= c^2(t)S_Y(f)
+$$
+
+
+$$
+S_X(t,f)= g(t)S_Y(f)
+$$
+
+#### Rowsums: c2(t)
+
+$$
+\sum_{i=1}^{N_f} S_X(t,f_i)
+           = g(t)\sum_{i=1}^{N_f} S_Y(f_i)
+$$
+
+#### setup gest
+
+$$
+\frac
+  {\sum_{i=1}^{N_f} S_X(t_1,f_i)}
+  {\sum_{i=1}^{N_f} S_X(t_2,f_i)}
+= \frac
+  {g(t_1)\sum_{i=1}^{N_f} S_Y(f_i)}
+  {g(t_2)\sum_{i=1}^{N_f} S_Y(f_i)}
+$$
+
+$$
+A_{t_1,t_2}
+$$
+
+$$
+\sum_{j=1}^N g(t_i) = \sum_{j=1}^N A_{t_it_j}\,g(t_j)
+$$
+
+$$
+\vec g = \frac{1}{N}A \vec g
+$$
+
+
+### YEST
+
+
+$$
+\sum_{t=1}^{N} S_X(t,f) = S_Y(f)\sum_{t=1}^{N}g(t)
+$$
+
+$$
+\frac
+  {\sum_{t=1}^{N} S_X(t,f_1)}
+  {\sum_{t=1}^{N} S_X(t,f_2)}
+= \frac
+  {S_Y(f_1)\sum_{t=1}^{N}g(t)}
+  {S_Y(f_2)\sum_{t=1}^{N}g(t)}
+$$
+
+$$
+A_{f_1,f_2}
+$$
+
+$$
+\vec S_Y = \frac{1}{N_f}A \vec S_Y
+$$
+
+$$
+\hat g_1        \\
+\hat S_{Y,1}    \\
+\hat g_2        \\
+\hat S_{Y,2}    \\
+$$
+
+
+## Smoothing
+
+$$
+\tilde S_X(t,f) = \hat g_2(t) \hat S_{Y,2}(f)
+$$
+
+
+
+
+
+
+
